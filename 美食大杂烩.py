@@ -9,8 +9,8 @@ headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
 url='https://www.xiachufang.com/explore/'
 
 #使用get获取数据时，需要添加请求头
-res   = requests.get(url,headers=headers)
-bsres = bs4.BeautifulSoup(res.text,'html.parser')
+res   = requests.get(url, headers=headers)
+bsres = bs4.BeautifulSoup(res.text, 'html.parser')
 
 #使用find_all查找含有属性‘info pure-u’的div标签
 menu = bsres.find_all('div',class_="info pure-u")
@@ -19,17 +19,17 @@ menu = bsres.find_all('div',class_="info pure-u")
 food_list = []
 for i in menu:
     #获取菜名
-    name = i.find('p',class_='name').text.strip()
+    name = i.find('p', class_='name').text.strip()
     #获取地址
-    url1 = 'https://www.xiachufang.com'+i.find('a').get('href')
+    url1 = 'https://www.xiachufang.com' + i.find('a').get('href')
     #获取食材
-    food = i.find('p',class_='ing ellipsis').text.strip()
+    food = i.find('p', class_='ing ellipsis').text.strip()
     #把上面三个信息打包成一个列表存入food_list
-    food_list.append([name,url1,food])
+    food_list.append([name, url1, food])
 
 food_list = []
-name_list = bsres.find_all('p',class_="name")
-foodlist  = bsres.find_all('p',class_="ing ellipsis")
+name_list = bsres.find_all('p', class_="name")
+foodlist  = bsres.find_all('p', class_="ing ellipsis")
 
 for i in range(len(name_list)):
     food_list.append([name_list[i].text.strip() ,name_list[i].find('a').get('href'), foodlist[i].text.strip()])
