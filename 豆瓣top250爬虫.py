@@ -8,14 +8,14 @@ movie_lis t = []
 id = 0
 for i in range(10):
     res = requests.get(url + '?start=' + str(25*i) + '&filter=', headers = headers)
-    bs_res = bs4.BeautifulSoup(res.text,'html.parser')
+    bs_res = bs4.BeautifulSoup(res.text, 'html.parser')
     data = bs_res.find_all('div', class_ = 'info')
     for j in data:
         id += 1
         try:
-            movie = j.find('span',class_='title').text
-            star =j .find('span',class_="rating_num").text
-            recommendation = j.find('p',class_='quote').text.strip()
+            movie = j.find('span', class_='title').text
+            star =j .find('span', class_="rating_num").text
+            recommendation = j.find('p', class_='quote').text.strip()
             movie_url = j.find('a')['href']
         except:
             pass
